@@ -27,17 +27,9 @@ def main():
     
     uploaded_file = st.file_uploader("Cargar imagen", type=["jpg", "jpeg", "png"])
     
-    
     #Carga el modelo
-    try:
-        model_covid = load_model('/workspaces/lungsx-ray/Modelos_binarios/covid')
-    except Exception as e:
-        st.error(f"Error al cargar el modelo: {e}")
+    model_sano = load_model('/workspaces/lungsx-ray/Modelos_binarios/pneumonia')
 
-    try:
-        model_sano = load_model('/workspaces/lungsx-ray/Modelos_binarios/covid')
-    except Exception as e:
-        st.error(f"Error al cargar el modelo: {e}")
 
     if uploaded_file is not None:
 
