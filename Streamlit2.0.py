@@ -5,28 +5,21 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.models import load_model
 
-def predict_imagen(imagen, model):
+def predict_imagen(imagen):
     imagen = imagen.reshape((1, 150, 150, 3))
-    predictions = model.predict(imagen)
-    predicted_class = tf.argmax(predictions[0]).numpy()
-    class_names = ['COVID', 'SANO', 'PNEUMONIA', 'TUBERCULOSIS']
-    return class_names[predicted_class]
-
-#def predict_imagen(imagen):
-    imagen = imagen.reshape((1, 150, 150, 3))
-    #pred_covid = model_covid.predict(imagen)[0][0]
-    #pred_sano = model_sano.predict(imagen)[0][0]
-    #pred_pneumonia = model_pneumonia.predict(imagen)[0][0]
-    #pred_tuberculosis = model_tuberculosis.predict(imagen)[0][0]
+    pred_covid = model_covid.predict(imagen)[0][0]
+    pred_sano = model_sano.predict(imagen)[0][0]
+    pred_pneumonia = model_pneumonia.predict(imagen)[0][0]
+    pred_tuberculosis = model_tuberculosis.predict(imagen)[0][0]
     # Crea un diccionario de predicciones
-    #predictions = {
-        #'COVID': pred_covid,
-        #'SANO': pred_sano,
-        #'PNEUMONIA': pred_pneumonia,
-        #'TUBERCULOSIS': pred_tuberculosis
-    #}
-   # closest_to_zero = min(predictions, key=predictions.get) # Selecciona la categoría con el resultado más cercano a 0
-    #return closest_to_zero
+    predictions = {
+        'COVID': pred_covid,
+        'SANO': pred_sano,
+        'PNEUMONIA': pred_pneumonia,
+        'TUBERCULOSIS': pred_tuberculosis
+    }
+    closest_to_zero = min(predictions, key=predictions.get) # Selecciona la categoría con el resultado más cercano a 0
+    return closest_to_zero
 
 def main():
     st.markdown("<h1 style='text-align: center; color: black; font-size: 40px;'>Servicio de Neumología de 4geeks</h1>", unsafe_allow_html=True)
@@ -35,8 +28,10 @@ def main():
     uploaded_file = st.file_uploader("Cargar imagen", type=["jpg", "jpeg", "png"])
     
     #Carga el modelo
-    model = load_model('/workspaces/lungsx-ray/modelo_softmax_optimizado.keras')
-
+    model_covid = load_model('/Modelos_binarios/covid')
+    model_sano = load_model('/Modelos_binarios/normal')
+    model_pneumonia = load_model('/Modelos_binarios/pneumonia')
+    model_tuberculosis = load_model('/Modelos_binarios/tuberculosis')
 
     if uploaded_file is not None:
 
