@@ -37,7 +37,12 @@ def main():
     except Exception as e:
         st.error(f"Error al cargar el modelo: {e}")
 
-    
+     try:
+        model_sano = load_model('/workspaces/lungsx-ray/Modelos_binarios/covid')
+       
+    except Exception as e:
+        st.error(f"Error al cargar el modelo: {e}")
+
     if uploaded_file is not None:
 
         #Augmenta el brillo y el contraste de la imagen añadida
