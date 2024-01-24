@@ -11,6 +11,7 @@ def predict_imagen(imagen):
     pred_sano = model_sano.predict(imagen)[0][0]
     pred_pneumonia = model_pneumonia.predict(imagen)[0][0]
     pred_tuberculosis = model_tuberculosis.predict(imagen)[0][0]
+    
     # Crea un diccionario de predicciones
     predictions = {
         'COVID': pred_covid,
