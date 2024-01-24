@@ -5,12 +5,11 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.models import load_model
 
-
  #Carga el modelo
-model_covid= load_model('Modelos_binarios/covid')
-model_sano = load_model('/Modelos_binarios/normal')
-model_pneumonia = load_model('Modelos_binarios/pneumonia')
-model_tuberculosis = load_model('Modelos_binarios/tuberculosis')
+    model_covid= load_model('Modelos_binarios/covid')
+    model_sano = load_model('/Modelos_binarios/normal')
+    model_pneumonia = load_model('Modelos_binarios/pneumonia')
+    model_tuberculosis = load_model('Modelos_binarios/tuberculosis')
 
 def predict_imagen(imagen):
     imagen = imagen.reshape((1, 150, 150, 3))
@@ -18,6 +17,7 @@ def predict_imagen(imagen):
     pred_sano = model_sano.predict(imagen)[0][0]
     pred_pneumonia = model_pneumonia.predict(imagen)[0][0]
     pred_tuberculosis = model_tuberculosis.predict(imagen)[0][0]
+    
     # Crea un diccionario de predicciones
     predictions = {
         'COVID': pred_covid,
@@ -34,6 +34,7 @@ def main():
     
     uploaded_file = st.file_uploader("Cargar imagen", type=["jpg", "jpeg", "png"])
     
+
     if uploaded_file is not None:
         #Augmenta el brillo y el contraste de la imagen añadida
         # Convert image to RGB mode if not already in RGB
