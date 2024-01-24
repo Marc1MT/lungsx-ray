@@ -6,10 +6,10 @@ from tensorflow import keras
 from tensorflow.keras.models import load_model
 
  #Carga el modelo
-    model_covid= load_model('Modelos_binarios/covid')
-    model_sano = load_model('/Modelos_binarios/normal')
-    model_pneumonia = load_model('Modelos_binarios/pneumonia')
-    model_tuberculosis = load_model('Modelos_binarios/tuberculosis')
+model_covid= load_model('Modelos_binarios/covid')
+model_sano = load_model('/Modelos_binarios/normal')
+model_pneumonia = load_model('Modelos_binarios/pneumonia')
+model_tuberculosis = load_model('Modelos_binarios/tuberculosis')
 
 def predict_imagen(imagen):
     imagen = imagen.reshape((1, 150, 150, 3))
