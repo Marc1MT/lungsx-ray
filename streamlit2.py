@@ -18,7 +18,7 @@ def main():
     
     uploaded_file = st.file_uploader("Cargar imagen", type=["jpg", "jpeg", "png"])
     #Carga el modelo
-    model = load_model('/workspaces/lungsx-ray/modelo_softmax_optimizado.keras')
+    model = load_model('/workspaces/lungsx-ray/')
 
     if uploaded_file is not None:
 
@@ -31,7 +31,6 @@ def main():
         image = ImageEnhance.Brightness(image).enhance(0.7)
         image = ImageEnhance.Contrast(image).enhance(2.0)
         image.thumbnail((299, 299), Image.BICUBIC)  # Use BICUBIC instead of ANTIALIAS
-
 
 
         if image is not None:
