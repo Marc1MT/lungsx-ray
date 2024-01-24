@@ -5,42 +5,22 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.models import load_model
 
- #Carga el modelo
-model_covid= load_model('Modelos_binarios/covid')
-model_sano = load_model('/Modelos_binarios/normal')
-model_pneumonia = load_model('Modelos_binarios/pneumonia')
-model_tuberculosis = load_model('Modelos_binarios/tuberculosis')
-
-def predict_imagen(imagen):
-    imagen = imagen.reshape((1, 150, 150, 3))
-    pred_covid = model_covid.predict(imagen)[0][0]
-    pred_sano = model_sano.predict(imagen)[0][0]
-    pred_pneumonia = model_pneumonia.predict(imagen)[0][0]
-    pred_tuberculosis = model_tuberculosis.predict(imagen)[0][0]
-    
-    # Crea un diccionario de predicciones
-    predictions = {
-        'COVID': pred_covid,
-        'SANO': pred_sano,
-        'PNEUMONIA': pred_pneumonia,
-        'TUBERCULOSIS': pred_tuberculosis
-    }
-    closest_to_zero = min(predictions, key=predictions.get) # Selecciona la categoría con el resultado más cercano a 0
-    return closest_to_zero
 
 def main():
     st.markdown("<h1 style='text-align: center; color: black; font-size: 40px;'>Servicio de Neumología de 4geeks</h1>", unsafe_allow_html=True)
     st.write('**Por favor tenga sus radiografias a mano (en el ordenador)**')
     
     uploaded_file = st.file_uploader("Cargar imagen", type=["jpg", "jpeg", "png"])
-    
+    model_covid = load_model('/Modelos_binarios/covid')
+    model_sano = load_model('/Modelos_binarios/normal')
+    model_pneumonia = load_model('/Modelos_binarios/pneumonia')
+    model_tuberculosis = load_model('/Modelos_binarios/tuberculosis')
 
     if uploaded_file is not None:
         #Augmenta el brillo y el contraste de la imagen añadida
         # Convert image to RGB mode if not already in RGB
        #if uploaded_file.mode != "RGB":
         # uploaded_file = uploaded_file.convert("RGB")
-
         image = Image.open(uploaded_file)
         image = ImageEnhance.Brightness(image).enhance(0.7)
         image = ImageEnhance.Contrast(image).enhance(2.0)
@@ -63,3 +43,20 @@ def main():
     
 if __name__ == "__main__":
     main()
+
+def predict_imagen(imagen):
+    imagen = imagen.reshape((1, 150, 150, 3))
+    pred_covid = model_covid.predict(imagen)[0][0]
+    pred_sano = model_sano.predict(imagen)[0][0]
+    pred_pneumonia = model_pneumonia.predict(imagen)[0][0]
+    pred_tuberculosis = model_tuberculosis.predict(imagen)[0][0]
+    
+    # Crea un diccionario de predicciones
+    predictions = {
+        'COVID': pred_covid,
+        'SANO': pred_sano,
+        'PNEUMONIA': pred_pneumonia,
+        'TUBERCULOSIS': pred_tuberculosis
+    }
+    closest_to_zero = min(predictions, key=predictions.get) # Selecciona la categoría con el resultado más cercano a 0
+    return closest_to_zero
