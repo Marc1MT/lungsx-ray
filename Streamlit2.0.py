@@ -31,15 +31,11 @@ def main():
     #Carga el modelo
     try:
         model_covid = load_model('/workspaces/lungsx-ray/Modelos_binarios/covid')
-        model_sano = load_model('/workspaces/lungsx-ray/Modelos_binarios/covid')
-        model_pneumonia = load_model('/workspaces/lungsx-ray/Modelos_binarios/covid')
-        model_tuberculosis = load_model('/workspaces/lungsx-ray/Modelos_binarios/covid')
     except Exception as e:
         st.error(f"Error al cargar el modelo: {e}")
 
-     try:
+    try:
         model_sano = load_model('/workspaces/lungsx-ray/Modelos_binarios/covid')
-       
     except Exception as e:
         st.error(f"Error al cargar el modelo: {e}")
 
