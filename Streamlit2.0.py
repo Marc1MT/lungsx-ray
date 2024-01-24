@@ -28,10 +28,10 @@ def main():
     uploaded_file = st.file_uploader("Cargar imagen", type=["jpg", "jpeg", "png"])
     
     #Carga el modelo
-    model_covid = load_model('/workspaces/lungsx-ray/Modelos_binarios/covid/saved_model.pb')
-    model_sano = load_model('/workspaces/lungsx-ray/Modelos_binarios/covid/saved_model.pb')
-    model_pneumonia = load_model('/workspaces/lungsx-ray/Modelos_binarios/covid/saved_model.pb')
-    model_tuberculosis = load_model('/workspaces/lungsx-ray/Modelos_binarios/covid/saved_model.pb')
+    model_covid = load_model('/workspaces/lungsx-ray/Modelos_binarios/covid')
+    model_sano = load_model('/workspaces/lungsx-ray/Modelos_binarios/covid')
+    model_pneumonia = load_model('/workspaces/lungsx-ray/Modelos_binarios/covid')
+    model_tuberculosis = load_model('/workspaces/lungsx-ray/Modelos_binarios/covid')
 
     if uploaded_file is not None:
 
